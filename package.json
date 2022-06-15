@@ -1,5 +1,5 @@
 {
-  "name": "paypalproject",
+  "name": "paypalproject-modified",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "start": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "AbuMusa",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
