@@ -12,10 +12,22 @@ paypal.configure({
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+app.use(express.json());
 
 app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
 
 app.post("/pay", (req, res) => {
+  const order = req.body;
+  let parchaseItem = order.cartItems.map((item) => {
+    const pitem = {
+      name: item.name,
+      price: item.price,
+      currency: "USD",
+      quantity: item.quantity,
+    };
+    return pitem;
+  });
+  console.log(parchaseItem);
   const create_payment_json = {
     intent: "sale",
     payer: {
@@ -28,26 +40,11 @@ app.post("/pay", (req, res) => {
     transactions: [
       {
         item_list: {
-          items: [
-            {
-              name: "Red Sox Hat",
-
-              price: "5.00",
-              currency: "USD",
-              quantity: 1,
-            },
-            {
-              name: "Milk",
-
-              price: "5.00",
-              currency: "USD",
-              quantity: 1,
-            },
-          ],
+          items: parchaseItem,
         },
         amount: {
           currency: "USD",
-          total: "10.00",
+          total: order.total,
         },
       },
     ],
